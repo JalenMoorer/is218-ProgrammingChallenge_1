@@ -1,5 +1,4 @@
 <?php
-  
   $car_orders[0]['model'] = 'taurus';
   $car_orders[0]['engine'] = 'V6';
   $car_orders[0]['color'] = 'blue';
@@ -9,16 +8,22 @@
   $car_orders[2]['model'] = 'focus';
   $car_orders[2]['engine'] = 'V6';
   $car_orders[2]['color'] = 'blue';
-  
-  foreach($car_orders as $car_order) {
-    foreach($car_order as $key => $value) {
-      echo $key . ': ' . $value . "<br>\n";
 
+  if(empty($_GET)){
+     foreach($car_orders as $car_order) {
+     $i++;
+     $car_order_num = $i - 1;
+     echo '<a href=' . '"http://web.njit.edu/~jmm77/is218-fall2014/cars.php?car_order=' . $car_order_num .  '"' . '>Car Order ' . $i . '</a>';
+     
+     echo '</p>';
+     }
     }
 
-      echo '<br>';
-  }
+  $car_order = $car_orders[$_GET['car_order']];	
 
+  foreach($car_order as $key => $value){
+   echo $key . ' : ' , $value . "<br>\n";
+  }
 
   abstract class car {
     protected $engine;
