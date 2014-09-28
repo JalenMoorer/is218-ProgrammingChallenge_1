@@ -1,21 +1,40 @@
 <?php
 
+
+error_reporting(E_ERROR | E_PARSE); //Only disable warnings to view page clearly!
+
 class csv
 {
 
 	public function __construct(){
-		echo "<h3>Reading from csvfile</h3>";	
+		echo "<h3>Integrated Post Secondary Educational Data System</h3>";	
 	}
 
 	public function csv_print()
 	{
-		$records = $this->csv_read("test.csv");
+		$records = $this->csv_read("hd2013.csv");
+		$num = count($records);
 
-		foreach($records as $record){
-			foreach($record as $key => $value) {
-				echo "<b>$key</b>". ': ' . $value .  "</br> \n";
-			}echo '<hr>';
+		$colleges = array_column($records, 'INSTNM', 'UNITID');
+		//print_r($colleges);
+
+
+		$i = 0;
+		foreach($colleges as $key => $value){
+			$i++;
+			$college_number = $i - 1;
+			echo $i . ' : ' , '<a href=' . '"csv1.php?college='. $college_number . '"' . '>' . $value . '</a><br>'; 
+
+			echo '</p>';
 		}
+
+		/*if (is_array($records)){
+			foreach($records as $record){
+				foreach($record as $key => $value) {
+					 echo "<b>$key</b>". ': ' . $value .  "</br> \n";
+				}echo '<hr>';
+			}
+		}*/
 	}
 
 	public function csv_read($csvfile)
@@ -40,7 +59,7 @@ class csv
 	}
 	
 	public function __destruct(){
-		echo "<h3>Done reading from csvfile</h3>";
+		echo "<h3>End of file</h3>";
 	}
 }
 
