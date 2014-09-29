@@ -14,27 +14,27 @@ class csv
 	{
 		$records = $this->csv_read("hd2013.csv");
 		$num = count($records);
+		//echo $records[0]['CHFNM'];
 
 		$colleges = array_column($records, 'INSTNM', 'UNITID');
 		//print_r($colleges);
 
 
 		$i = 0;
+		if(empty($_GET)){
 		foreach($colleges as $key => $value){
 			$i++;
 			$college_number = $i - 1;
-			echo $i . ' : ' , '<a href=' . '"csv1.php?college='. $college_number . '"' . '>' . $value . '</a><br>'; 
-
+			echo '<a href=' . '"http://localhost/php/csv1.php?record='. $college_number . '"' . '>' . $value . '</a><br>'; 
 			echo '</p>';
 		}
+	  }
 
-		/*if (is_array($records)){
-			foreach($records as $record){
-				foreach($record as $key => $value) {
-					 echo "<b>$key</b>". ': ' . $value .  "</br> \n";
-				}echo '<hr>';
-			}
-		}*/
+		$record = $records[$_GET['record']];
+
+		foreach($record as $key => $value){
+			echo $key . ' : ' , $value . "<br>\n";
+		}	
 	}
 
 	public function csv_read($csvfile)
