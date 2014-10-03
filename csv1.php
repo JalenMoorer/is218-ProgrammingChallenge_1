@@ -3,65 +3,81 @@
 @author Jalen Moorer
 IS218 - Programming Challenge #1
 October 3rd, 2014
-*/
+*/	
 
 class csv
 {
-	public $colleges;
-	public $full_titles;
+	//use git with file commands to remove things right in the repository 
+	public $record;
+	public $dictionary;
 
-	public function __construct(){
-		echo "<body style='margin: 0; padding:0;'>";
-		echo "<h3>Integrated Post Secondary Educational Data System</h3>";	
+	public function __construct()
+	{	//added html/css formatting to build the page when classed object is created
+	
+		$page_format = "<style> 
+		body{
+			margin: 0;
+			padding: 0;
+		}
+
+		h3, h1{
+			text-align: center;
+
+		}
+
+		table{
+			width: 100%;
+			border: 2px solid #fff;
+		}
+
+		</style>";
+
+		echo $page_format;
+		echo "<h3><u>Integrated Post Secondary Educational Data System</u></h3><hr>";	
 	}
 
 	public static function csv_print_college($records, $dictionary)
-	{
-		//Split column values from both arrays and stored them into new arrays to use
-		$colleges = array_column($records, 'INSTNM', 'UNITID');
-		$full_titles = array_column($dictionary, 'varTitle', 'varnumber');
-
-
+	{	
 		$i = 0;
 		if(empty($_GET)){
-		foreach($colleges as $key => $value){
+		foreach($records as $key => $value){
 			$i++;
 			$college_number = $i - 1;
-			csv::create_link($college_number, $value); //call the function to print out each college record and the hyperlink for each
-			$college_name = $value;
+			csv::create_link($college_number, $records, $i); //call the function to print out each college record and the hyperlink for each
 		}
 	  }
 
-		$record = $records[$_GET['record']]; 
-		$full_title = $full_titles[$_GET['record']];
-		$college_title = $college_name[$_GET['record']];
+		$record = $records[$_GET['record']];
 
-		csv::csv_print_records($record, $full_title, $full_titles, $college_title, $colleges); //call the function to print out the _GET values from both arrays
+		csv::csv_print_records($record, $dictionary); //call the function to print out the _GET values from records
 	}
 
-	public static function csv_print_records($record, $full_title, $full_titles, $college_title, $colleges)
+	public static function csv_print_records($record, $dictionary)
 	{
 		$table_head = TRUE;
 		$j = 0;
-		foreach($full_titles as $key => $value){
+		echo "<h1>Record for: " . $record['INSTNM'] . "</h1>";
+		foreach($record as $key => $value){	
 			if($table_head == TRUE) 
 			{	//prints out all records in HTML Table format
-				echo "<table style='text-align: center;' border=\"1\"><tr>"; $j++;
+				echo "<table style='text-align: center;' border=\"1\"><tr>";
 				$table_head = FALSE;
 			}
-			echo "<td>".$value."</td>";
+			$key = $dictionary[$j]['varTitle']; //replaces the key value from records with the value of the varTitle key at that index
+			echo "<th>".$key."</th>";
+			$j++;
 		}
 		echo "</tr>";
 		foreach($record as $key => $value){
-			echo "<td>".$value."</td>"; 
+			echo "<td>".$value."</td>";
 		}
 		echo "</table>";
 	}
 
-	public static function create_link($college_number, $value)
+	public static function create_link($college_number, $records, $i)
 	{
 		//creates a link in html format containing the index value of needed to print out the dictionary and college records in detail
-		echo '<a href=' . '"http://web.njit.edu/~jmm77/is218-fall2014/csv1.php?record='. $college_number . '"' . '>' . $value . '</a><br>'; 
+		echo $i . ': ' . '<a href=' . '"http://web.njit.edu/~jmm77/is218-fall2014/csv1.php?record='. $college_number . '"' . '>' . $records[$i-1]['INSTNM']. '</a><br>';
 		echo '</p>';
 	}
 
