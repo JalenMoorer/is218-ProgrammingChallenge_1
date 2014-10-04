@@ -5,6 +5,7 @@ IS218 - Programming Challenge #1
 October 3rd, 2014
 */	
 
+
 class csv
 {
 	//use git with file commands to remove things right in the repository 
@@ -56,7 +57,7 @@ class csv
 	{
 		$table_head = TRUE;
 		$j = 0;
-		echo "<h1>Record for: " . $record['INSTNM'] . "</h1>";
+		echo "<h1>".$record['INSTNM'] . "</h1>";
 		foreach($record as $key => $value){	
 			if($table_head == TRUE) 
 			{	//prints out all records in HTML Table format
@@ -85,30 +86,35 @@ class csv
 	{	
 		//reads from a csv file
 		$firstrow = TRUE;
+		$row = null;
 		ini_set('auto_detect_line_endings', TRUE);
 		if (( $handle = fopen($csvfile, "r")) !== FALSE) {
-			while (($row = fgetcsv($handle, 1000, ",")) !== FALSE){
+			while (($row = fgetcsv($handle, ",")) !== FALSE){
 			if($firstrow == TRUE ){
 			$column_heading = $row;
-			$firstrow = FALSE;	
+			$firstrow = FALSE;
 			}else{
 			$record = array_combine($column_heading, $row); //turns the first column into keys and the rest of the values uner it as values
-			$records[] = $record;				
+			$records[] = $record;
+			memory_get_peak_usage();
 			}
-				
+			unset($row);unset($record);
 		 	}
+
 			fclose($handle);
 		}
+
 		return $records;
 	}
 }
 
-$csv_object = new csv; //instantiated an object to invoke the constructor 
+
+$csv_object = new csv; //instantiated an object to invoke the constructor
 
 $csvfile1 = "hd2013.csv";   
 $csvfile2 = "dictionary.csv";
 
-$records = csv::csv_read($csvfile1); //store the contents of both files into seperate 
+$records = csv::csv_read($csvfile1); //store the contents of both files into seperate
 $dictionary = csv::csv_read($csvfile2);//arrays that will be used for printing
 
 csv::csv_print_college($records, $dictionary); // call the print function to print contents from both arrays
