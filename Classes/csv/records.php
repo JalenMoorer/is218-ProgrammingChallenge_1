@@ -1,5 +1,5 @@
 <?php
-namespace Classes\csv
+namespace Classes\csv;
 
 class records implements recordsInterface
 {
