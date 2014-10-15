@@ -1,7 +1,9 @@
 <?php
-namespace Classes\csv;
-class read implements readFileInterFace {
 
+namespace Classes\csv;
+
+class read implements readInterFace 
+{
 	public function read_csv_file($csvfile)
 	{	
 		//reads from a csv file
@@ -28,8 +30,5 @@ class read implements readFileInterFace {
 	}
 
 }
-
-
-
 
 ?>
