@@ -2,7 +2,7 @@
 
 namespace Classes\csv;
 
-class read implements readInterFace 
+class read implements readInterface 
 {
 	public function read_csv_file($csvfile)
 	{	

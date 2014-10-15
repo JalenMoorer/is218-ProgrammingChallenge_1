@@ -19,7 +19,9 @@ class menu implements menuInterface
 
 	public function menu_records($records)
 	{
-		$college_records = $records[$_GET['record']];
+		$record = $records[$_GET['record']];
+		$college_records = \Classes\csv\records::set_record_titles($record);
+
 		return $college_records;
 	}
 
