@@ -5,9 +5,14 @@
 </head>
 <body>
 
-<h1> Integrated Post Secondary Educational Data System </h1>
+<h1> Integrated Post Secondary Educational Data System</h1>
 <hr>
 <?php
+
+/*Jalen Moorer
+*IS218 - Programming Challenge #2
+*October 15th, 2014
+*/
 
 require_once('Classes/Autoloader.php');
 spl_autoload_register('Autoloader::autoload');
