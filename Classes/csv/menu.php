@@ -5,8 +5,9 @@ namespace Classes\csv;
 class menu implements menuInterface
 {
 	public $record;
+	public $new_record;
 
-	public function menu_links($records, $dictionary)
+	public function menu_links($records, $dictionary) //gathers each record row and calls the html link function from htmlmenu class
 	{
 		$i = 0;
 		if(empty($_GET)){
@@ -14,21 +15,14 @@ class menu implements menuInterface
 			{
 				$i++;
 				$college_number = $i - 1;
-				\Classes\html\htmlmenu::print_html_links($records, $college_number, $i);
+				\Classes\html\htmlmenu::print_html_links($records, $college_number, $i); 
 			}
 		}
 
 		$record = $records[$_GET['record']];
 
-		$updated_record = \Classes\csv\records::set_record_titles($record, $dictionary);
+		$new_record = \Classes\csv\records::set_record_titles($record, $dictionary); // takes the value of _GET and passes it to a function that returns an array with new keys
 
-		\Classes\html\htmltable::print_html_table($updated_record);
+		\Classes\html\htmltable::print_html_table($new_record); //outputs the keys in html-table format
 	}
-
-	/*public function menu_records($records, $dictionary)
-	{
-		$record = $records[$_GET['record']];
-		$college_records = \Classes\csv\records::set_record_titles($record, $dictionary);
-		return $college_records;
-	}*/
 }

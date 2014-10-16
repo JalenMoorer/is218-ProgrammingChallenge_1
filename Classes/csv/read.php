@@ -4,7 +4,7 @@ namespace Classes\csv;
 
 class read implements readInterface 
 {
-	public function read_csv_file($csvfile)
+	public function read_csv_file($csvfile) // reads from a csv file
 	{	
 		//reads from a csv file
 		$firstrow = TRUE;
