@@ -1,6 +1,6 @@
 <?php
 
-class Autoloader {
+class Autoloader { //Autoloader recursively adds and includes php files through any subdirectory under the current one
 
 	static public function autoload($className)
 	{
